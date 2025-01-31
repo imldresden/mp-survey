@@ -26,16 +26,24 @@
 		});
 		dispatch('message', { prop: value, name: name });
 	}
+
+	let color = window.getComputedStyle(document.body).getPropertyValue("background-color");
+	let altcolor = document.documentElement.classList.contains("dark") ? "var(--alt-color-dark)" : "var(--alt-color-light)";
+
 </script>
 
 <div class="select">
-	<Select
+	<Select 
 		on:change={handleChange}
 		multiple
 		on:filter={handleFilter}
 		bind:filterText
 		bind:value
 		{items}
+		--background={color}
+		--list-background={color}
+		--item-hover-bg={altcolor}
+		--multi-item-bg={altcolor}
 	>
 		<div slot="item" let:item>
 			{item.created ? 'Add new: ' : ''}
@@ -45,12 +53,4 @@
 </div>
 
 <style>
-	.select {
-		--background: #1F2937;
-		--list-background:#1F2937;
-		--multi-item-bg:#1F2937;
-		--border: 1px solid gray;
-		--item-hover-color:black;
-		/* --item-hover-bg:black; */
-	}
 </style>

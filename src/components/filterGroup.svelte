@@ -1,14 +1,17 @@
 <script>
   import { onMount } from "svelte";
+  import { afterUpdate, createEventDispatcher } from 'svelte';
   import { AccordionItem, Button, P } from "flowbite-svelte";
 	import { CheckOutline } from "flowbite-svelte-icons";
 
 	import { filterBy } from "../store"
-
+  
   export let name;
   export let selected;
   export let values;
   export let freqGroup;
+
+  const dispatch = createEventDispatcher();
 
   let listVal = [];
   const sShowCount = 10;
@@ -47,16 +50,42 @@
   <div class="space-y-1 flex-col flex flex-shrink items-start">
     {#each listVal as value}
       <Button
-        color="dark"
+        color="none"
         size="xs"
-        class="border-gray-200 dark:border-gray-700 divide-gray-200 dark:divide-gray-700 font-medium inline-flex items-center justify-center px-2.5 py-0.5 text-sm bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 rounded"
         on:click={() => {
-					if(!selected.includes(value)){
+          const f = $filterBy;
+          f.forEach((filter) => {
+            if ("groupName" in filter) {
+              filter.categories.forEach((cate) => {
+                if (cate.values.includes(value)) {
+                  if (!cate.selected.includes(value)) {
+                    cate.selected.push(value);
+                  } else {
+                    cate.selected = cate.selected.filter(i => i !== value);
+                  }
+                    
+                  return;
+                }
+              });
+            } else {
+              if (filter.values.includes(value)) {
+                if (!filter.selected.includes(value)) {
+                  filter.selected.push(value);
+                } else {
+                  filter.selected = filter.selected.filter(i => i !== value)
+                }
+                return;
+              }
+            }
+          });
+
+          if(!selected.includes(value)){
           	selected.push(value);
 					} else {
-						selected.splice(selected.indexOf(value), 1)
+						selected = selected.filter(i => i !== value)
 					}
-					$filterBy = $filterBy;
+
+          filterBy.update(_ => f);
         }}>
 				{#if selected.includes(value)}
 				<CheckOutline class="w-3 h-3 mr-1"/>
@@ -73,12 +102,11 @@
         outline
         class="border-0"
         size="xs"
-        on:click={() => updateShowCount(showCount - 10)}
-      >
+        on:click={() => updateShowCount(showCount - 10)}>
         see less
       </Button>
     {/if}
-    {#if showCount <= values.length}
+    {#if showCount < values.length}
       <Button
         outline
         class="border-0"

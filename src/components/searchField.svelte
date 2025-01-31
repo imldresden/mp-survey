@@ -10,17 +10,18 @@
 </script>
 
 <div class="solo-container solo-container-prop">
-		<Input bind:value={$searchFilter}  placeholder="Search" size="lg">
-			<SearchOutline slot="left"/>
-			<CloseButton slot="right" on:click={clearSearch} />
-		</Input>
+	<Input bind:value={$searchFilter}  placeholder="Search">
+		<SearchOutline slot="left"/>
+		<CloseButton slot="right" on:click={clearSearch} />
+	</Input>
 </div>
 
 
 <style>
 	.solo-container {
-		padding: 12px 8px;
-		margin-right:2px;
+		margin-right:5px;
+		margin-left:5px;
+		width: 100% 
 	}
 
 	.solo-container-prop {

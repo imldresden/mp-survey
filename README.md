@@ -11,9 +11,6 @@ Survey webpages built using Indy Survey Tool:
 
 - [Getting Started](#getting-started)
 - [Running the Webpage](#running-the-webpage)
-  - [`npm install`](#npm-install)
-  - [`npm run prepare`](#npm-run-prepare)
-  - [`npm run dev`](#npm-run-dev)
 - [Uploading Survey Papers](#uploading-survey-papers)
   - [Upload in Bulk](#upload-in-bulk)
   - [Manually Upload Paper](#manually-upload-paper)
@@ -43,20 +40,9 @@ To create your survey webpage:
 
 ## Running the Webpage
 
-In the project directory, you can run:
-
-### `npm install`
-
-Install all the libraries you need to get the app running using the list from `package.json`.
-
-### `npm run prepare`
-
-Run this command prior to `npm run dev` to update the webpage with any changes.
-
-### `npm run dev`
-
-Runs the site locally in development mode.<br />
-It should provide a link to localhost to view the site in your browser.
+1. `npm install` installs all the libraries you need to get the app running using the list from `package.json`.
+2. `npm run build` updates and exports `index.html`, and the files in `dist/assets` for a static website. 
+3. `npm run dev` the site locally (see link to localhost) in development mode (updates to src files reload the site).
 
 ## Uploading Survey Papers
 
@@ -64,17 +50,22 @@ The easiest method of uploading survey papers in bulk is using our CSV converter
 
 ### Upload in Bulk
 
-1. Export your list of survey papers in CSV format. E.g.:
-   * In Zotero, right-click the collection -> "Export Collection" -> Format: "CSV"
-   * In Airtable, under the name of the view select "Download CSV"
-   * In Notion, click the ... icon -> "Export" -> Export format: "Markdown & CSV"
-2. Save the file to the root directory of this project with the name [Survey-Info.csv](Survey-Info.csv).
-3. Edit the headers of the CSV file, if necessary. Note that at a minimum, `Name`, `Year`, `Authors` (comma separated), `DOI`, and `Bibtex` are required. Make sure the headers match exactly. See [Adding a New Paper Categorization](#adding-a-new-paper-categorization) for more information about defining more categories for the papers.
-4. Run the following code to generate a file named [survey-data.json]().
-    ```bash
-    python3 convertCSVtoJson.py
-    ```
-5. Move this file to [src/data](src/data) for the webpage to display the papers. This is to allow you to make updates to the file without any previous changes being overwritten.
+1. Create an export of your corpus: 
+   1. Create an export from your library manager (e.g. Zotero, Airtable, Notion)
+   2. Save the file to the `src/data` directory with the name [Survey-Info.csv](Survey-Info.csv).
+   3. Add your taxonomy columns as headers and values as either lists of strings (comma separated), or marks ("x") for values that apply. 
+   4. `Name`, `Year`, `Authors` (comma separated), `DOI`, and `Bibtex` are required. 
+2. Create the config and data json files: 
+   1. Modify the dictionaries `includeProp`, `categories`, and `groups` in `src/data/create-jsons.py` to match your taxonomy columns. This depends on your columns from the previous step:
+      1. If the column name matches an entry in `includeProp`, it will look for values directly (as list of comma separated strings)
+      2. If the column name is not in `includeProp`, it will look for `x` and create lists based on the headers using the `categories` dictionary.
+      3. Finally, the `groups` dictionary specifies the grouping of filters in the website as dictionary values, and thus the keys should match the keys of `includeProp`.
+   2. Run the script to generate [survey-data.json](src/data/survey-data.json) and [survey-config.json](src/data/survey-config.json) --- WARNING: The script deletes the existing files---if entries have been manually added to these files, they will be lost. 
+        ```bash
+        python3 create-jsons.py
+        ```
+   3. The script prints out warnings for empty fields from the `includeProp` dictionary. You may use this to enforce value combinations (e.g. "at least one column from group A and one from group B"), or to identify edge cases. 
+3. Build the website as explained in [Running the Webpage](#running-the-webpage) to see the created entries. 
 
 ### Manually Upload Paper
 

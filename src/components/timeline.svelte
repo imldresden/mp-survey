@@ -49,17 +49,17 @@
 		if (year < value[0] || year > value[1]) {
 			return '#808080';
 		} else {
-			return '#69B3A2';
+			return 'var(--primary)';
 		}
 	};
 </script>
 
 <div class="timeline-container">
-	<Heading tag="h4"><strong>Time Filter:</strong></Heading>
 	<div class="date-range">
 		<P>{value[0]}</P>
 		<P>{value[1]}</P>
 	</div>
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<RangeSlider
 	 	range
 		bind:values={value}
@@ -88,7 +88,6 @@
 							y={y(d) + padding.bottom}
 							width={bandWidth}
 							height={height - y(d) - padding.bottom - padding.top}
-							stroke={"black"}
 							stroke-width="{gap}px"
 							fill={'none'}
 
@@ -103,13 +102,6 @@
 </div>
 
 <style>
-	.title {
-		padding-top: 5px;
-		padding-left: 5px;
-	}
-	.timeline-container {
-		height: 150px;
-	}
 	.date-range {
 		padding-left: 10px;
 		padding-right: 10px;

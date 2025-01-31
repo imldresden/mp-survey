@@ -1,105 +1,144 @@
 <script>
-	import { Button, Modal, Heading, Dropdown, DropdownItem, P } from 'flowbite-svelte';
-	import { ChevronDownSolid } from 'flowbite-svelte-icons';
+  import {
+    A,
+    P,
+    Li,
+    Button,
+    Modal,
+    Heading,
+    Navbar,
+    NavBrand,
+    Tooltip,
+    DarkMode,
+  } from "flowbite-svelte";
+  import {
+    AdjustmentsHorizontalSolid,
+    PlusOutline,
+    QuestionCircleOutline,
+    GithubSolid,
+    ListOutline,
+    ChartOutline,
+  } from "flowbite-svelte-icons";
+  import surveys from "./data/other-surveys.json";
+  import AddEntry from "./components/addEntry.svelte";
 
-	import surveys from './data/other-surveys.json';
-	import AddEntry from './components/addEntry.svelte';
-	let open = false;
-	let menu;
-	export let detailView;
-	export let topView;
-	export let freq;
+  let open = false;
+  let menu;
+  export let detailView;
+  export let topView;
+  export let freq;
+  export let closeFn;
+  export let showTitle;
+  export let headerPx;
+  export let toggleParams;
+
+  let pill = true;
+
 </script>
 
-<header class="top-bar flexy dark:bg-gray-900">
-	<div class="survey-info">
-		{#if topView.title}
-			<Heading tag="h4">{topView.title}</Heading>
-		{/if}
-		{#if topView.description}
-			<P class="survey-subtext dark:text-gray-400">
-				{topView.description}
-			</P>
-		{/if}
-		{#if topView.authors}
-			<P class="survey-subtext dark:text-gray-400">{topView.authors}</P>
-		{/if}
-		
-	</div>
-	<div class="flex-end">
-		<Modal title="Terms of Service" bind:open={open} autoclose size='lg'>
-			<AddEntry {detailView} {freq} addEntryInfo={topView.addEntry}/>
-		</Modal>
-		<Button size="md" class="border-0 p-1" outline on:click={() => (open = true)}>
-			Add Entry
-		</Button>
-		<div>
-			<Button size="md" class="border-0 p-1" outline on:click={() =>(menu = true)}>
-				Other Surveys
-				<ChevronDownSolid class="w-3 h-3 ml-2 text-white dark:text-white" />
-			</Button>
-			<Dropdown bind:open={menu}>
-				{#each surveys as survey}
-					<DropdownItem href={survey.url} >
-						{survey.name}
-					</DropdownItem>
-				{/each}
-			</Dropdown>
-		</div>
-	</div>
+<header style="max-height:{headerPx}px;">
+  <Navbar class="mx-0" style="height:{headerPx}px">
+    <div class="flex float-left {showTitle ? 'hidden' : ''}">
+      <Button
+        {pill}
+        outline
+        class="!p-1 border-0 mr-5"
+        id="toggle-filters"
+        on:click={closeFn}
+      >
+        <AdjustmentsHorizontalSolid />
+        <Tooltip triggeredBy="#toggle-filters" placement="bottom">
+          Toggle Filters
+        </Tooltip>
+      </Button>
+
+      <NavBrand class="items-left">
+        {#if topView.title}
+          <Heading tag="h6">
+            {topView.title}
+          </Heading>
+        {/if}
+      </NavBrand>
+
+      <Button
+        {pill}
+        outline
+        class="!p-1 border-0  ml-5 {toggleParams.hidden ? 'hidden' : ''}"
+        id="toggle-view"
+        on:click={toggleParams.func}
+      >
+        {#if toggleParams.vis}
+          <ListOutline />
+        {/if}
+        {#if toggleParams.papers}
+          <ChartOutline />
+        {/if}
+        <Tooltip triggeredBy="#toggle-view" placement="bottom">
+          Toggle View
+        </Tooltip>
+      </Button>
+    </div>
+
+    {#if showTitle}
+      <div class="flex float-left items-center"></div>
+    {/if}
+
+    <div class="float-right hidden lg:flex">
+      
+      <Modal size="lg" title="Add entry" bind:open autoclose={false}>
+        <AddEntry {detailView} {freq} addEntryInfo={topView.addEntry} />
+      </Modal>
+      
+      <Button
+        {pill}
+        outline
+        class="!p-1 border-0"
+        id="add-entry"
+        on:click={() => (open = true)}
+      >
+        <PlusOutline class="w-4 h-4" />
+        <Tooltip triggeredBy="#add-entry" placement="bottom">Add entry</Tooltip>
+      </Button>
+
+      <Button
+        {pill}
+        outline
+        class="!p-1 border-0"
+        id="github-link"
+      >
+        <GithubSolid />
+        <Tooltip triggeredBy="#github-link" placement="bottom">GitHub</Tooltip>
+      </Button>
+
+      <Button
+        {pill}
+        outline
+        class="!p-1 border-0"
+        id="other-surveys"
+        on:click={() => (menu = true)}
+      >
+        <QuestionCircleOutline />
+        <Tooltip triggeredBy="#other-surveys" placement="bottom">About</Tooltip>
+      </Button>
+
+      <Modal title="About this survey" bind:open={menu} size="lg" outsideclose>
+        <div>
+          <P>{topView.title}: {topView.description}</P>
+          Provided by: {topView.authors}
+        </div>
+        <div>This site lives in Github! Visit: {topView.addEntry.github}</div>
+
+        <div>
+          <P>Looking for more interactive surveys? Check out:</P>
+          {#each surveys as survey}
+            <Li><A href={survey.url}>{survey.name}</A></Li>
+          {/each}
+        </div>
+      </Modal>
+
+      <DarkMode btnClass="!p-1 border-0" style="color:var(--primary)" />
+      
+    </div>
+  </Navbar>
 </header>
 
-<style>
-	.close-button {
-		position: absolute;
-		top: 0px;
-		right: 0px;
-	}
-
-	header {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 80px;
-		z-index: 2;
-		
-	}
-	.top-bar {
-		width: 100%;
-		overflow: inherit;
-		display: inline-block;
-		align-items: center;
-		border-bottom: 1px solid gray !important;
-	}
-
-	.flexy {
-		display: flex;
-		justify-content: space-between;
-	}
-	.flex-end {
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	.survey-info {
-		margin: -15px 5px;
-		gap: 2px;
-		flex-direction: column;
-		align-content: flex-start;
-	}
-
-	.survey-title {
-		margin: 2px 0px;
-	}
-	.survey-subtext {
-		margin: 0px 0px;
-	}
-	.survey-list {
-		margin: 6px 10px;
-	}
-	.survey-link {
-		color: var(--mdc-text-button-label-text-color, var(--mdc-theme-primary, #ff3e00));
-		text-decoration: none;
-	}
-</style>

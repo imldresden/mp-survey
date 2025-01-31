@@ -1,11 +1,13 @@
 <script>
-  import { Button, P } from "flowbite-svelte";
+  import { Tooltip, Button, P } from "flowbite-svelte";
   import { AccordionItem, Accordion } from "flowbite-svelte";
-  import StackGraph from "./viscomponets/stackGraph.svelte";
-  import CorrMetric from "./viscomponets/corrMetric.svelte";
+  import { CogOutline  } from "flowbite-svelte-icons";
+  import StackGraph from "./vis/stackGraph.svelte";
+  import CorrMetric from "./vis/corrMetric.svelte";
   import { filterBy } from "./store";
   export let data;
-   let width;
+  
+  let width;
   let choicesDim = [];
 
   //Get the list of dimension to visualize
@@ -19,7 +21,7 @@
     }
   });
   $: selectedDimX = choicesDim[0];
-  $: selectedDimY = choicesDim[0];
+  $: selectedDimY = choicesDim[1];
   $: selectedCate = choicesDim[0];
   $: selectedSubCate = choicesDim[0];
   $: subCates = [];
@@ -33,16 +35,39 @@
   } else {
     selectedSubCate = selectedCate;
   }
-$:console.log(width)
+
+  $: showHideSettings = (which) => {
+    Array.from(document.getElementsByClassName(which)).forEach((el) => {
+        el.classList.toggle("hidden")
+    })
+  }
+
 </script>
 <svelte:window bind:innerWidth={width} />
+
 <div class="vis-panel dark:bg-gray-900">
   <Accordion>
-    <AccordionItem>
-      <span slot="header">Correlations Matrix</span>
+    <AccordionItem open={true}>
+      <div slot="header" style="display:flex">Correlation Matrix 
+        <Button
+          pill={true}
+          outline
+          class="!p-1 border-0"
+          id="other-surveys"
+          on:click={(eve) =>  {
+              eve.stopPropagation();
+              showHideSettings("corr-hidable");
+            }}
+        >
+          <CogOutline />
+          <Tooltip triggeredBy="#other-surveys" placement="bottom">Settings</Tooltip>
+        </Button>
+
+      </div>
+      
       <div class="flexy">
-        <div class="flex flex-wrap space-x-1 pb-3 items-center">
-          <P style="padding-left:20px">Dimension X-Axis:</P>
+        <div class="flex flex-wrap space-x-1 pb-3 items-center corr-hidable hidden">
+          <P style="padding-left:20px">X-Axis:</P>
           {#each choicesDim as dim}
             <Button
               size="sm"
@@ -56,8 +81,9 @@ $:console.log(width)
             >
           {/each}
         </div>
-        <div class="flex flex-wrap space-x-1 items-center">
-          <P style="padding-left:20px">Dimension Y-Axis:</P>
+
+        <div class="flex flex-wrap space-x-1 items-center corr-hidable hidden">
+          <P style="padding-left:20px">Y-Axis:</P>
           {#each choicesDim as dim}
             <Button
               outline
@@ -76,48 +102,65 @@ $:console.log(width)
       <!-- Create the visualization -->
       <CorrMetric
         {data}
-        selectedDimX={selectedDimX["name"]}
+        selectedDimX={selectedDimX.name}
         selectedDimY={selectedDimY.name}
         on:message
       />
     </AccordionItem>
     <AccordionItem>
-      <span slot="header">Over the Years</span>
+      <div slot="header" style="display:flex">Over the Years
+      <Button
+          pill={true}
+          outline
+          class="!p-1 border-0"
+          id="other-surveys"
+          on:click={(eve) =>  {
+              eve.stopPropagation();
+              showHideSettings("stack-hidable");
+            }}
+        >
+          <CogOutline />
+          <Tooltip triggeredBy="#other-surveys" placement="bottom">Settings</Tooltip>
+        </Button>
+
+      </div>
 
       <div class="flexy">
-        <div class="flex flex-wrap space-x-1 pb-3 items-center">
-          <P style="padding-left:20px">Categories:</P>
-          {#each choicesDim as dim}
-            <Button
-              size="sm"
-              outline
-              class="p-1 {dim.name === selectedCate.name
-                ? 'dark:bg-gray-400 dark:text-primary-200'
-                : 'cursor-pointer'}"
-              on:click={() => {
-                selectedCate = dim;
-              }}>{dim.name}</Button
-            >
-          {/each}
-        </div>
-        {#if subCates.length > 0}
+        <div class="stack-hidable hidden"> 
           <div class="flex flex-wrap space-x-1 pb-3 items-center">
-            <P style="padding-left:20px">Sub-Catagories:</P>
-            {#each subCates as subcate}
+            <P style="padding-left:20px">Categories:</P>
+            {#each choicesDim as dim}
               <Button
                 size="sm"
                 outline
-                class="p-1 {subcate === selectedSubCate
+                class="p-1 {dim.name === selectedCate.name
                   ? 'dark:bg-gray-400 dark:text-primary-200'
                   : 'cursor-pointer'}"
                 on:click={() => {
-                  selectedSubCate = subcate;
-                }}>{subcate}</Button
+                  selectedCate = dim;
+                }}>{dim.name}</Button
               >
             {/each}
           </div>
-        {/if}
-
+          {#if subCates.length > 0}
+            <div class="flex flex-wrap space-x-1 pb-3 items-center">
+              <P style="padding-left:20px">Sub-Categories:</P>
+              {#each subCates as subcate}
+                <Button
+                  size="sm"
+                  outline
+                  class="p-1 {subcate === selectedSubCate
+                    ? 'dark:bg-gray-400 dark:text-primary-200'
+                    : 'cursor-pointer'}"
+                  on:click={() => {
+                    selectedSubCate = subcate;
+                  }}>{subcate}</Button
+                >
+              {/each}
+            </div>
+          {/if}
+        </div>
+        
         <StackGraph
           {data}
           selectedCate={selectedSubCate === "All"
@@ -135,6 +178,8 @@ $:console.log(width)
     padding: 10px 5px;
     height: 100%;
     width: 100%;
-    position: relative;
+  }
+  .hidden {
+    display: none
   }
 </style>
