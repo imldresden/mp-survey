@@ -251,7 +251,18 @@
     "topView": {
         "title": "Mixed Presence in Mixed Reality",
         "description": "Charting the Challenges and Opportunities",
-        "authors": "Katja Krug and Wolfgang B\u00fcschel and Marc Satkowski and Stefan Gumhold and Raimund Dachselt",
+        "authors": [
+            { "name": "Katja Krug", "orcid": "https://orcid.org/0000-0003-4800-6287" },
+            { "name": "Wolfgang Büschel", "orcid": "https://orcid.org/0000-0002-3548-723X" },
+            { "name": "Marc Satkowski", "orcid": "https://orcid.org/0000-0002-1952-8302" },
+            { "name": "Stefan Gumhold", "orcid": "https://orcid.org/0000-0003-1029-7656" },
+            { "name": "Raimund Dachselt", "orcid": "https://orcid.org/0000-0002-2176-876X" }
+        ],
+        "site": {
+            "maintainer": "Julián Méndez",
+            "contact": "https://github.com/menocsk27/",
+            "how-to": "This paper will soon appear in the CHI 2026 proceedings! A DOI and bibtex entry will then placed here."
+        },
         "addEntry": {
             "description": [
                 "If you know a peer-reviewed published work that presents a contribution missing in our browser, please submit an entry!",
