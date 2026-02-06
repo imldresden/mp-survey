@@ -29,7 +29,7 @@ This repository hosts the survey data and website from the survey paper "Mixed P
 
 ### To manually add papers 
 
-After the 10.12.2025 cut off date, papers should be added by editing the [src/data/survey-data.json](src/data/survey-data.json), under the `"data"` tag. You can use this template: 
+After the paper's cut off date, papers should be added by editing the [src/data/survey-data.json](src/data/survey-data.json), under the `"data"` tag. You can use this template: 
 ```json
 "data": [  // array of paper objects
     {
