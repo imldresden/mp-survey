@@ -1,0 +1,263 @@
+{
+    "filterBy": [
+        {
+            "groupName": "Meta",
+            "categories": [
+                {
+                    "name": "Use Case: Task/Task Type",
+                    "values": [
+                        "Assembly & Arrangement",
+                        "Problem Solving & Games",
+                        "Communication & Collaboration",
+                        "Instruction & Guidance"
+                    ]
+                },
+                {
+                    "name": "Use Case: Domain",
+                    "values": [
+                        "(Tele) Medicine",
+                        "Education & Knowledge Work",
+                        "Maintenance & Industry",
+                        "Various & Unspecified",
+                        "Social & Play",
+                        "Design & Creativity"
+                    ]
+                },
+                {
+                    "name": "Study Task",
+                    "values": [
+                        "no study",
+                        "puzzle and assembly",
+                        "game",
+                        "object arrangement and manipulation",
+                        "training, instruction, guiding",
+                        "maintainance",
+                        "communication",
+                        "information extraction and generation",
+                        "walkthrough",
+                        "locating object in environment"
+                    ]
+                }
+            ]
+        },
+        {
+            "groupName": "Technology",
+            "categories": [
+                {
+                    "name": "device limitations",
+                    "values": [
+                        "general - device limitations",
+                        "tracking",
+                        "ergonomics",
+                        "display"
+                    ]
+                },
+                {
+                    "name": "scene acquisition & reconstruction",
+                    "values": [
+                        "point cloud stability",
+                        "general - scene acquisition & reconstruction",
+                        "general object recognition & alignment",
+                        "point cloud Level of Detail",
+                        "scale of environment & tracking area",
+                        "3D reconstruction",
+                        "point cloud completeness"
+                    ]
+                },
+                {
+                    "name": "user acquisition & modelling",
+                    "values": [
+                        "general - user acquisition & modelling",
+                        "body tracking",
+                        "face & gaze tracking",
+                        "hand tracking"
+                    ]
+                },
+                {
+                    "name": "system complexity",
+                    "values": [
+                        "computational challenges",
+                        "heterogeneity & interoperability",
+                        "devices & sensors",
+                        "general - system complexity",
+                        "scalability"
+                    ]
+                },
+                {
+                    "name": "latency & real-time presentation",
+                    "values": [
+                        "performance",
+                        "bandwidth issue",
+                        "synchronicity",
+                        "general - latency & real-time presentation",
+                        "general latency",
+                        "network challenges"
+                    ]
+                }
+            ]
+        },
+        {
+            "groupName": "Environment",
+            "categories": [
+                {
+                    "name": "spatial consistency",
+                    "values": [
+                        "general - spatial consistency",
+                        "calibration & alignment"
+                    ]
+                },
+                {
+                    "name": "shared & blended environment",
+                    "values": [
+                        "shared objects",
+                        "controlling real-world properties",
+                        "virtual content positioning",
+                        "general - shared & blended environment",
+                        "physical & spatial limits",
+                        "dissimilar spaces"
+                    ]
+                },
+                {
+                    "name": "spatial awareness & orientation",
+                    "values": [
+                        "general - spatial awareness & orientation",
+                        "communication about the environment",
+                        "dynamic changes",
+                        "locating  objects & user"
+                    ]
+                }
+            ]
+        },
+        {
+            "groupName": "User",
+            "categories": [
+                {
+                    "name": "user representation & techniques",
+                    "values": [
+                        "avatar designs & uncanny valley",
+                        "level of detail & accuracy",
+                        "general - user representation & techniques"
+                    ]
+                },
+                {
+                    "name": "communication & sensory feedback",
+                    "values": [
+                        "physical props & haptic feedback",
+                        "general - communication & sensory feedback",
+                        "facial expressions & eyes",
+                        "non-verbal",
+                        "gestures"
+                    ]
+                },
+                {
+                    "name": "interpersonal awareness",
+                    "values": [
+                        "gaze & view sharing",
+                        "content & intention sharing",
+                        "general - interpersonal awareness"
+                    ]
+                },
+                {
+                    "name": "cognition & presence",
+                    "values": [
+                        "co- & social-presence",
+                        "cognitive & mental load",
+                        "presence",
+                        "general - cognition & presence"
+                    ]
+                },
+                {
+                    "name": "accessibility & inclusion",
+                    "values": [
+                        "accessibility & inclusion"
+                    ]
+                }
+            ]
+        },
+        {
+            "groupName": "Cross-Cutting",
+            "categories": [
+                {
+                    "name": "asymmetric experiences",
+                    "values": [
+                        "interaction & general capabilities",
+                        "user representation",
+                        "content & environment sharing",
+                        "general - asymmetric experiences",
+                        "awareness on shared personal information"
+                    ]
+                },
+                {
+                    "name": "interaction & UI design",
+                    "values": [
+                        "adaptive & customizable UI",
+                        "workflow",
+                        "general - interaction & UI design",
+                        "annotations"
+                    ]
+                },
+                {
+                    "name": "evaluation & studies",
+                    "values": [
+                        "evaluation & studies"
+                    ]
+                },
+                {
+                    "name": "domain & use case specific",
+                    "values": [
+                        "domain & use case specific"
+                    ]
+                },
+                {
+                    "name": "data privacy & security",
+                    "values": [
+                        "data privacy & security"
+                    ]
+                }
+            ]
+        }
+    ],
+    "detailView": {
+        "view": "normal",
+        "show": [
+            "Use Case: Task/Task Type",
+            "Use Case: Domain",
+            "Study Task",
+            "device limitations",
+            "scene acquisition & reconstruction",
+            "user acquisition & modelling",
+            "system complexity",
+            "latency & real-time presentation",
+            "spatial consistency",
+            "shared & blended environment",
+            "spatial awareness & orientation",
+            "user representation & techniques",
+            "communication & sensory feedback",
+            "interpersonal awareness",
+            "cognition & presence",
+            "accessibility & inclusion",
+            "asymmetric experiences",
+            "interaction & UI design",
+            "evaluation & studies",
+            "domain & use case specific",
+            "data privacy & security"
+        ]
+    },
+    "summaryView": {
+        "view": "text",
+        "showImg": true,
+        "show": []
+    },
+    "topView": {
+        "title": "Mixed Presence in Mixed Reality",
+        "description": "Charting the Challenges and Opportunities",
+        "authors": "Katja Krug and Wolfgang B\u00fcschel and Marc Satkowski and Stefan Gumhold and Raimund Dachselt",
+        "addEntry": {
+            "description": [
+                "If you know a peer-reviewed published work that presents a contribution missing in our browser, please submit an entry!",
+                "Filling out the form below will create a json entry that can be added to an issue in our Github repository."
+            ],
+            "github": "https://github.com/imldresden/mp-survey"
+        }
+    }
+}
