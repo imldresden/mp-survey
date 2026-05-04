@@ -261,7 +261,22 @@
         "site": {
             "maintainer": "Julián Méndez",
             "contact": "https://github.com/menocsk27/",
-            "how-to": "This paper will soon appear in the CHI 2026 proceedings! A DOI and bibtex entry will then placed here."
+            "how-to": "To cite this work, please use the following DOI:",
+            "doi": "https://doi.org/10.1145/3772318.3791508",
+            "bib": [ 
+"@article{KBSGD2026mp,",
+    "author = {Katja Krug and Wolfgang B\"{u}schel and Marc Satkowski and Stefan Gumhold and Raimund Dachselt},",
+    "title = {Mixed Presence in Mixed Reality: Charting the Challenges and Opportunities},",
+    "booktitle = {Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems},",
+    "year = {2026},",
+    "month = {4},",
+    "isbn = {979-8-4007-2278-3/2026/04},",
+    "location = {Barcelona, Spain},",
+    "numpages = {22},",
+    "publisher = {ACM},",
+    "doi = {10.1145/3772318.3791508}",
+"}"
+            ]
         },
         "addEntry": {
             "description": [
