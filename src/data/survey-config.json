@@ -265,7 +265,7 @@
             "doi": "https://doi.org/10.1145/3772318.3791508",
             "bib": [ 
 "@article{KBSGD2026mp,",
-    "author = {Katja Krug and Wolfgang B\"{u}schel and Marc Satkowski and Stefan Gumhold and Raimund Dachselt},",
+    "author = {Katja Krug and Wolfgang B\\\"{u}schel and Marc Satkowski and Stefan Gumhold and Raimund Dachselt},",
     "title = {Mixed Presence in Mixed Reality: Charting the Challenges and Opportunities},",
     "booktitle = {Proceedings of the 2026 CHI Conference on Human Factors in Computing Systems},",
     "year = {2026},",
